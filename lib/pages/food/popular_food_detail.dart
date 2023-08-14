@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rota_yemek/widgets/app_column.dart';
+import 'package:rota_yemek/widgets/exandable_text_widget.dart';
 
 import '../../utils/colors.dart';
 import '../../utils/dimensions.dart';
@@ -18,6 +19,7 @@ class PopularFoodDetail extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
+          //background image
           Positioned(
               left:0,
               right: 0,
@@ -33,6 +35,7 @@ class PopularFoodDetail extends StatelessWidget {
                   )
                 ),
               )),
+          //icon widget
           Positioned(
               left: Dimensions.width20,
               right: Dimensions.width20,
@@ -45,6 +48,7 @@ class PopularFoodDetail extends StatelessWidget {
                 ],
 
               )),
+          //introduction of food
           Positioned(
              left: 0,
              right: 0,
@@ -64,11 +68,16 @@ class PopularFoodDetail extends StatelessWidget {
                     children: [
                       AppColumn(text: "Chinese Side"),
                       SizedBox(height: Dimensions.height20,),
-                      BigText(text: "İçerik")
+                      BigText(text: "İçerik"),
+                      SizedBox(height: Dimensions.height20,),
+
+                      Expanded (child: SingleChildScrollView(child: ExpandableTextWidget(text: "Tavuklu yeşillik salatası, sağlıklı ve lezzetli bir yemek seçeneği olarak öne çıkar. Bu salata, taze yeşillikler, tavuk eti ve çeşitli renkli sebzelerin bir araya gelmesiyle oluşur. Hem hafif hem de besleyici olan bu salata, öğle veya akşam yemeklerinde tercih edilen bir seçenektir.")))
                     ],
                   )
 
-          ))
+          )),
+          //expandable text widget
+
         ],
       ),
       bottomNavigationBar: Container(
