@@ -24,12 +24,11 @@ class RecommendedFoodDetail extends StatelessWidget {
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(20),
               child: Container(
-                color: Colors.white,
                 child: Center(child: BigText(size:Dimensions.font26,text: "Chinese Sidee",)),
                 width: double.maxFinite,
                 padding: EdgeInsets.only(top: 5, bottom: 10),
                 decoration: BoxDecoration(
-                   color: Colors.white,
+                  color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(Dimensions.radius20),
                     topRight: Radius.circular(Dimensions.radius20)
