@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rota_yemek/controllers/popular_product_controller.dart';
+import 'package:rota_yemek/pages/home/main_food_page.dart';
+import 'package:rota_yemek/utils/app_constants.dart';
 import 'package:rota_yemek/widgets/app_column.dart';
 import 'package:rota_yemek/widgets/exandable_text_widget.dart';
 
@@ -9,12 +12,17 @@ import '../../widgets/app_icon.dart';
 import '../../widgets/big_text.dart';
 import '../../widgets/icon_and_text_widget.dart';
 import '../../widgets/small_text.dart';
+import 'package:get/get.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({Key? key}) : super(key: key);
+  final int pageId;
+  const PopularFoodDetail({Key? key, required this.pageId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product= Get.find<PopularProductController>().popularProductList[pageId];
+    print("page id "+ pageId.toString());
+    print("product name is "+ product.name.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -29,8 +37,8 @@ class PopularFoodDetail extends StatelessWidget {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: AssetImage(
-                      "assets/image/food0.png"
+                    image: NetworkImage(
+                      AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.img!
                     )
                   )
                 ),
@@ -43,7 +51,12 @@ class PopularFoodDetail extends StatelessWidget {
               child: Row(
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppIcon(icon: Icons.arrow_back_ios),
+                  GestureDetector(
+                      onTap:(){
+                        Get.to(()=>MainFoodPage());
+                      },
+                      child:
+                  AppIcon(icon: Icons.arrow_back_ios)),
                   AppIcon(icon: Icons.shopping_cart_rounded)
                 ],
 
@@ -66,12 +79,12 @@ class PopularFoodDetail extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppColumn(text: "Chinese Side"),
+                      AppColumn(text: product.name!),
                       SizedBox(height: Dimensions.height20,),
                       BigText(text: "İçerik"),
                       SizedBox(height: Dimensions.height20,),
 
-                      Expanded (child: SingleChildScrollView(child: ExpandableTextWidget(text: "Tavuklu yeşillik salatası, sağlıklı ve lezzetli bir yemek seçeneği olarak öne çıkar. Bu salata, taze yeşillikler, tavuk eti ve çeşitli renkli sebzelerin bir araya gelmesiyle oluşur. Hem hafif hem de besleyici olan bu salata, öğle veya akşam yemeklerinde tercih edilen bir seçenektir.")))
+                      Expanded (child: SingleChildScrollView(child: ExpandableTextWidget(text: product.description!)))
                     ],
                   )
 
@@ -111,7 +124,7 @@ class PopularFoodDetail extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.only(top: Dimensions.height20, bottom: Dimensions.height20, left: Dimensions.width20, right: Dimensions.width20),
-              child: BigText(text: "\10TL | Karta Ekle", color: Colors.white,),
+              child: BigText(text: "\$ ${product.price!} | Karta Ekle", color: Colors.white,),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radius20),
                 color: AppColors.mainColor
